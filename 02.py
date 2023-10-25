@@ -1,6 +1,3 @@
-menu1_print = "1 - Cadastro de candidato \n 2 - Verificar Compatibilidade de Candidatos \n 3 - Remover Candidato \n "
-menu2_print = "4 - Ver Candidatos Cadastrados \n 5 - Voltar ao Menu Anterior \n 6 - Encerrar Programa \n "
-'Por favor, insira a opção desejada:'
 # Função para cadastrar um candidato
 def cadastrar_candidato():
     print("=== Cadastro de Candidato ===")
@@ -8,7 +5,7 @@ def cadastrar_candidato():
     nota_entrevista = float(input("Nota da entrevista: "))
     nota_teste_teorico = float(input("Nota do teste teórico: "))
     nota_teste_pratico = float(input("Nota do teste prático: "))
-    nota_soft_skills = float(input("Nota da avaliação de Soft Skills: "))
+    nota_soft_skills = float(input("Nota da avaliação de Soft Skills:"))
 
     candidato = {
         'Nome': nome,
@@ -29,32 +26,24 @@ def verificar_compatibilidade():
     nota_soft_skills = float(input("Nota da avaliação de Soft Skills: "))
 
     candidatos_compativeis = []
-
     for candidato in candidatos:
-        if (
-            nota_entrevista <= candidato['Entrevista']
-            and nota_teorico <= candidato['Teste Teórico']
-            and nota_pratico <= candidato['Teste Prático']
-            and nota_soft_skills <= candidato['Soft Skills']
-        ):
-            candidatos_compativeis.append(candidato)
 
+        compatibilidade = abs(candidato['Entrevista'] - nota_entrevista) + abs(
+            candidato['Teste Teórico'] - nota_teorico) + abs(candidato['Teste Prático'] - nota_pratico) + abs(
+            candidato['Soft Skills'] - nota_soft_skills)
+
+        if compatibilidade <= 8:  # Defina seu próprio limite de compatibilidade
+            candidatos_compativeis.append(candidato)
     if candidatos_compativeis:
-        print("Os candidatos abaixo são compatíveis:")
+        print("Candidatos compatíveis:")
         for candidato in candidatos_compativeis:
-            nome = candidato['Nome']
-            nota_entrevista_candidato = candidato['Entrevista']
-            nota_teorico_candidato = candidato['Teste Teórico']
-            nota_pratico_candidato = candidato['Teste Prático']
-            nota_soft_skills_candidato = candidato['Soft Skills']
-            notas = f"e{nota_entrevista_candidato}_t{nota_teorico_candidato}_p{nota_pratico_candidato}_s{nota_soft_skills_candidato}"
-            print(f"Nome: {nome}, Notas: {notas}")
+            notas_formatadas = f"e{candidato['Entrevista']:.0f}_t{candidato['Teste Teórico']:.0f}_p{candidato['Teste Prático']:.0f}_s{candidato['Soft Skills']:.0f}"
+            print(f"\n{candidato['Nome']}: {notas_formatadas}")
+
     else:
         print("Nenhum candidato compatível encontrado.")
 
-
-
-
+    # Código para calcular a similaridade (você pode adicionar essa parte se necessário)
 
 # Função para remover um candidato com base no nome
 def remover_candidato():
@@ -88,9 +77,53 @@ def encerrar_programa():
 
 # Inicialização de variáveis
 candidatos = []
-programa_rodando = True
+
+# Inicialização de variáveis com candidatos e seus resultados
+candidato1 = {
+    'Nome': 'Roberta',
+    'Entrevista': 5.0,
+    'Teste Teórico': 10.0,
+    'Teste Prático': 8.0,
+    'Soft Skills': 8.0
+}
+
+candidato2 = {
+    'Nome': 'Angelina',
+    'Entrevista': 6.0,
+    'Teste Teórico': 9.0,
+    'Teste Prático': 7.0,
+    'Soft Skills': 7.0
+}
+
+candidato3 = {
+    'Nome': 'Giuseppe',
+    'Entrevista': 4.0,
+    'Teste Teórico': 8.0,
+    'Teste Prático': 9.0,
+    'Soft Skills': 9.0
+}
+
+candidato4 = {
+    'Nome': 'Luiggi',
+    'Entrevista': 7.0,
+    'Teste Teórico': 7.0,
+    'Teste Prático': 6.0,
+    'Soft Skills': 6.0
+}
+
+candidato5 = {
+    'Nome': 'Gilberto',
+    'Entrevista': 8.0,
+    'Teste Teórico': 6.0,
+    'Teste Prático': 5.0,
+    'Soft Skills': 5.0
+}
+
+# Adicione os candidatos iniciais à lista de candidatos
+candidatos.extend([candidato1, candidato2, candidato3, candidato4, candidato5])
 
 # Loop principal do programa
+programa_rodando = True
 while programa_rodando:
     print("\n=== Menu ===")
     print("1 - Cadastro de Candidato")
@@ -116,3 +149,10 @@ while programa_rodando:
         encerrar_programa()
     else:
         print("Opção inválida. Por favor, escolha uma opção válida.")
+
+
+    
+    
+   
+
+   
